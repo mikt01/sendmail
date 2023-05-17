@@ -18,7 +18,7 @@ var user_app_pass = ""
 app.post("/send-mail",(req,res)=>{
     console.log("Request get")
     let email = req.body.email
-    let title = req.body.title
+    let titlemain = req.body.titlemain
     let text  = req.body.text
     let date = req.body.date
     let date2 = req.body.date2
@@ -31,7 +31,7 @@ app.post("/send-mail",(req,res)=>{
     const mailOptions = {
         from: process.env.MAIL,
         to: email,
-        subject: (title) + ' ' + (date) + ' - ' + (date2),
+        subject: (titlemain) + ' ' + (date) + ' - ' + (date2),
         text: text
         };
     const transporter = nodemailer.createTransport({
