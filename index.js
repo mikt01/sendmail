@@ -8,7 +8,7 @@ const readline = require('readline');
 require('dotenv').config();
 
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json())    
+app.use(bodyParser.json())
 app.use(cors({ origin: true })); // enable origin cors
 
 var user_email = ""
@@ -19,24 +19,22 @@ app.post("/send-mail",(req,res)=>{
     console.log("Request get")
     let email = req.body.email
     let title = req.body.title
-    let text  = req.body.text
-    let user_mail = req.body.user_mail
-    let user_pass = req.body.user_pass
-    console.log(user_mail,user_pass)
+    let date = req.body.date
+    let date2 = req.body.date2
     // email = "duygudemirpence@gmail.com"
 
     // Mail içeriği
     const mailOptions = {
         from: process.env.MAIL,
         to: email,
-        subject: title,
-        text: text
-        };
+        subject: title + '' + date + '-' + '' + date2,
+        text: "Hello! Is this offer still available? What is the price? What are the loading times?"
+    };
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: user_mail,
-            pass: user_pass
+            user: user_email,
+            pass: user_app_pass
         }
     });
 
@@ -58,7 +56,21 @@ const server = app.listen(process.env.PORT || 3000 ,(err)=>{
     }else{
         console.log("Port Started. Port number %d: ", server.address().port);
 
-   
-        
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+
+        rl.question('Please enter your email: ', (email) => {
+            rl.question('Please enter your password: ', (password) => {
+                user_email = email;
+                user_app_pass = password;
+                console.log(`Email: ${email}, Password: ${password}`);
+                // rl.close();
+                // process.exit(); // prompt kapatılıyor
+
+            });
+        });
     }
 })
+// mdpjrjgcdjedxvdc
