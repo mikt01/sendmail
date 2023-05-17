@@ -20,6 +20,8 @@ app.post("/send-mail",(req,res)=>{
     let email = req.body.email
     let title = req.body.title
     let text  = req.body.text
+    let date = req.body.date
+    let date2 = req.body.date2
     let user_mail = req.body.user_mail
     let user_pass = req.body.user_pass
     console.log(user_mail,user_pass)
@@ -29,7 +31,7 @@ app.post("/send-mail",(req,res)=>{
     const mailOptions = {
         from: process.env.MAIL,
         to: email,
-        subject: title,
+        subject: (title) + ' ' + (date) + ' - ' + (date2),
         text: text
         };
     const transporter = nodemailer.createTransport({
